@@ -1,4 +1,6 @@
 import './App.css';
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
+import chakraTheme from '@chakra-ui/theme';
 import {
   ApolloClient,
   InMemoryCache,
@@ -10,6 +12,25 @@ import { Outlet } from 'react-router-dom';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+
+//ChakraUI button and theme
+const colors = {
+  brand: {
+    black: '#313628',
+    blue: '#A7CECB',
+    gray: '#8BA6A9',
+    green: '#CACC90',
+    white: '#F4EBBE',
+  }
+}
+const { Button } = chakraTheme.components
+
+const theme = extendBaseTheme({
+  colors,
+  components: {
+    Button,
+  },
+})
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -37,15 +58,17 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
-        <Header />
-        <div className="container">
-          <Outlet />
+    <ChakraBaseProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Header />
+          <div className="container">
+            <Outlet />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </ApolloProvider>
+      </ApolloProvider>
+    </ChakraBaseProvider>
   );
 }
 

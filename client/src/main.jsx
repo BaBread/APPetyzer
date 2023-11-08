@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx'
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 import SingleThought from './pages/SingleThought';
 import ErrorPage from './pages/ErrorPage';
@@ -23,6 +24,9 @@ const router = createBrowserRouter([
       }, {
         path: '/signup',
         element: <Signup />
+      }, {
+          path: '/signup',
+          element: <Recipe />
       }, {
         path: '/thoughts/:thoughtId',
         element: <SingleThought />
