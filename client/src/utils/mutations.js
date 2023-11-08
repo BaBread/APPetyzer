@@ -24,6 +24,39 @@ export const ADD_USER = gql`
   }
 `;
 
+// ADD FAVORITE RECIPE 
+// export const ADD_RECIPE = gql`
+//   mutation addRecipe($recipeId: ID!) {
+//     addRecipe(favoriteRecipeId: $_id) {
+//       _id   
+//     }
+//   }
+// `;
+
+
+// DELETE FAVORITE RECIPE
+// export const DELETE_RECIPE = gql`
+//   mutation deleteRecipe($recipeId: ID!) {
+//     deleteRecipe(recipeId: $recipeId) {
+//       success
+//       message
+//     }
+//   }
+// `;
+
+
+// UPDATE FAVORITE RECIPE 
+// export const UPDATE_RECIPE = gql`
+//   mutation updateRecipe($recipeId: ID!, $name: String, $ingredients: [String], $instructions: String) {
+//     updateRecipe(recipeId: $recipeId, name: $name, ingredients: $ingredients, instructions: $instructions) {
+//       _id
+//       name
+//       ingredients
+//       instructions
+//     }
+//   }
+// `;
+
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!, $thoughtAuthor: String!) {
     addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor) {
@@ -38,6 +71,7 @@ export const ADD_THOUGHT = gql`
     }
   }
 `;
+
 
 export const ADD_COMMENT = gql`
   mutation addComment(
