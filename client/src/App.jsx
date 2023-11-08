@@ -1,6 +1,6 @@
 import './App.css';
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
-import chakraTheme from '@chakra-ui/theme';
+// import chakraTheme from '@chakra-ui/theme';
 import {
   ApolloClient,
   InMemoryCache,
@@ -23,13 +23,13 @@ const colors = {
     white: '#F4EBBE',
   }
 }
-const { Button } = chakraTheme.components
+// const { Button } = chakraTheme.components
 
 const theme = extendBaseTheme({
   colors,
-  components: {
-    Button,
-  },
+  // components: {
+  //   Button,
+  // },
 })
 
 // Construct our main GraphQL API endpoint

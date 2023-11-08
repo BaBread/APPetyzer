@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { QUERY_THOUGHTS } from '../utils/queries';
-import { Card, CardBody, CardFooter } from '@chakra-ui/react'
-import { APIKey, getRandomRecipe } from '../utils/recipe';
+import { SimpleGrid, Stack, Heading, Divider, Button, Text, Image, Card, CardBody, CardFooter } from '@chakra-ui/react'
+
 const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   const thoughts = data?.thoughts || [];
