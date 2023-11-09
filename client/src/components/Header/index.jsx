@@ -15,9 +15,8 @@ const Header = () => {
 
   const handleSearch = () => {
     if (searchTerm.trim() !== '') {
-      // return onSearch(searchTerm, setSearchResults);
       performFetchSearch(searchTerm);
-      // window.location.href = `/search-results/${searchTerm}`;
+     
 
     }
   }
