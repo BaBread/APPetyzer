@@ -1,71 +1,84 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Box, Image, Text, Heading, VStack, HStack, Link as ChakraLink } from '@chakra-ui/react';
 
-import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-// import { Box, Image, Text } from '@chakra-ui/react'
+function RecipeInstructions({ instructions }) {
+  const instructionSteps = instructions.split('\n').filter(step => step.trim() !== '');
+
+  return (
+    <VStack align="start" spacing={2}>
+      <Heading as="h3" size="md">
+        Written Instructions:
+      </Heading>
+      <VStack align="start" spacing={1}>
+        {instructionSteps.map((step, index) => (
+          <Text key={index}>{step}</Text>
+        ))}
+      </VStack>
+    </VStack>
+  );
+}
 
 function SearchResultsPage() {
   const location = useLocation();
-  const { searchResults } = location.state || { searchResults: [] };
-  const { searchTerm } = useParams(); // Get the dynamic search term from the URL
+  const { searchTerm } = useParams();
+  const [searchResults, setSearchResults] = useState([]);
 
- 
-//   const filteredResults = searchResults.filter((result) =>
-//     result.strMeal.toLowerCase().includes(searchTerm.toLowerCase())
-//     );
-  
+  useEffect(() => {
+    // Perform the fetch request or any asynchronous operation to get search results
+    const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`;
 
-//   return (
-//     <div>
-//       <h2>Search Results for: {searchTerm}</h2>
-//       {/* <Box display="flex" flexWrap="wrap">
-//         {searchResults.map((result) => (
-//             <Box
-//             key={result.idMeal}
-//             className="result-box"
-//             maxW="sm"
-//             borderWidth="1px"
-//             borderRadius="lg"
-//             overflow="hidden"
-//             m="2"
-//           >
-//             <Image src={result.strMealThumb} alt={result.strMeal} />
-//             <Box p="6">
-//               <Text fontSize="xl" fontWeight="bold">
-//                 {result.strMeal}
-//               </Text>
-//               <Text>Category: {result.strCategory}</Text>
-//               <Text>Area: {result.strArea}</Text>
-//               <Text>Instructions: {result.strInstructions}</Text>
-//               <Text>Video: {result.strYoutube}</Text>
-//             </Box>
-//           </Box> */}
-//           <p>
-//             searchResults.map((result) => (
-        
-//           </p>
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data.meals || []);
+      })
+      .catch((error) => {
+        console.error('Error with fetch request:', error);
+      });
+  }, [searchTerm]);
 
-//         ))}
-//       </Box>
-//     </div>
-//   );
-
-return (
-    <div>
-      <h2>Search Results for: {searchTerm}</h2>
-      {searchResults.map((result) => (
-        <p key={result.idMeal}>
-          Meal Name: {result.strMeal}
-          <br />
-          Category: {result.strCategory}
-          <br />
-          Area: {result.strArea}
-          <br />
-          Instructions: {result.strInstructions}
-          <br />
-          Video: {result.strYoutube}
-        </p>
-      ))}
-    </div>
+  return (
+    <Box>
+      <Heading as="h2" mb={4}>
+        Search Results for: {searchTerm}
+      </Heading>
+      <HStack spacing={4} flexWrap="wrap">
+        {searchResults.map((result) => (
+          <Box
+            key={result.idMeal}
+            className="result-box"
+            maxW="sm"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            m={2}
+          >
+            <Image src={result.strMealThumb} alt={result.strMeal} />
+            <VStack align="start" p={6} spacing={2}>
+              <Heading as="h2" size="lg" fontWeight="bold">
+                {result.strMeal}
+              </Heading>
+              <Text>Category: {result.strCategory}</Text>
+              <Text>Region of Origin: {result.strArea}</Text>
+              <RecipeInstructions instructions={result.strInstructions} />
+              <HStack>
+                <Text>Visual Instructions:</Text>
+                <ChakraLink
+                  href={result.strYoutube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  textDecoration="underline"
+                  fontWeight="bold"
+                >
+                  {result.strYoutube}
+                </ChakraLink>
+              </HStack>
+            </VStack>
+          </Box>
+        ))}
+      </HStack>
+    </Box>
   );
 }
 
