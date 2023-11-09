@@ -8,6 +8,7 @@ import Recipe from './pages/Recipe';
 import Login from './pages/Login';
 import SingleThought from './pages/SingleThought';
 import ErrorPage from './pages/ErrorPage';
+import SearchResultsPage from './pages/SearchResultsPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
       }, {
         path: '/thoughts/:thoughtId',
         element: <SingleThought />
+      }, {
+        path: '/search-results',
+        element: <SearchResultsPage />
+      }, {
+        path: '/search-results/:searchTerm',
+        element: <SearchResultsPage />
       }
     ]
   },
