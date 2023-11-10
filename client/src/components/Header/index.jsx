@@ -16,7 +16,7 @@ const Header = () => {
   const handleSearch = () => {
     if (searchTerm.trim() !== '') {
       performFetchSearch(searchTerm);
-     
+
 
     }
   }
@@ -36,7 +36,7 @@ const Header = () => {
         console.log(results);
         setSearchResults(results);
 
-      
+
         window.location.href = `/search-results/${term}`;
       })
       .catch((error) => {
@@ -61,7 +61,7 @@ const Header = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Link to="/search-results">
-          <button onClick={handleSearch}>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </Link>
         </div>
         <div className="container flex-column justify-end align-center">
@@ -86,14 +86,14 @@ const Header = () => {
       </div>
       {searchResults.length > 0 && (
         <div className="container">
-          <h2>Search Results</h2>
+          <h2>Previous Results</h2>
           <ul>
             {searchResults.map((result) => (
               <li key={result.idMeal}>{result.strMeal}</li>
             ))}
           </ul>
         </div>
-        
+
       )}
     </header>
   );
