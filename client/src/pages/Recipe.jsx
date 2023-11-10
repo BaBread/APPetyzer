@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_THOUGHTS } from '../utils/queries';
-import { Box, Image, Card, CardHeader, CardBody, CardFooter, Text, StackDivider, HStack, List, ListItem, ListIcon, Link as ChakraLink } from '@chakra-ui/react';
+import { Box, Image, Card, CardHeader, CardBody, CardFooter, Text, StackDivider, HStack, VStack, List, ListItem, ListIcon, Link as ChakraLink } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
 
@@ -47,25 +47,24 @@ for (let i = 1; i <= 20; i++) {
   return (
     <Box bg='brand.gray'>
         <Card>
-            <Text fontSize='4xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600'>{recipeResult.strMeal}</Text>
+            <Text fontSize='4xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600' pb={8}>{recipeResult.strMeal}</Text>
             <CardHeader display='flex' justifyContent='center' alignItems='center' pb={8}>
+                <Box>
                 <Image
                 src={recipeResult.strMealThumb} 
                 alt={recipeResult.strMeal}
                 borderRadius='lg'
                 />
-            </CardHeader>
-            <CardBody pb={8}>
-                <HStack divider={<StackDivider />} spacing='4'>
-                <Box flex='1'>
-                    <Text fontSize='2xl' fontWeight='bold' textDecoration='underline'  align='center' color='green.600'>
-                            Directions
-                        </Text>
-                        <Text>
-                            {recipeResult.strInstructions}
-                        </Text>
-                    </Box>
+                </Box>
                     <Box flex='1' display='flex' flexDirection='column' alignItems='center'>
+                    <VStack>
+                        <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='blue.800'>
+                                Category: {recipeResult.strCategory}
+                        </Text>
+                        <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='white.800' mb={16}>
+                                Origin:  {recipeResult.strArea}
+                        </Text>
+                    </VStack>
                     <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600'>
                             Ingredients
                         </Text>  
@@ -79,7 +78,19 @@ for (let i = 1; i <= 20; i++) {
                                 </ListItem>
                             ))}
                          </List>
+
                     </Box>
+            </CardHeader>
+            <CardBody pb={8}>
+                <HStack divider={<StackDivider />} spacing='4'>
+                <Box flex='1'>
+                    <Text fontSize='2xl' fontWeight='bold' textDecoration='underline'  align='center' color='green.600'>
+                            Directions
+                        </Text>
+                        <Text>
+                            {recipeResult.strInstructions}
+                        </Text>
+                </Box>
                 </HStack>
             </CardBody>
             <CardFooter display='flex' justifyContent='center' alignItems='center'>
