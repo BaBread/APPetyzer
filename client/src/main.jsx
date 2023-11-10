@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx'
 import Home from './pages/Home';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       }, {
-          path: '/signup',
+          path: '/Recipe/:idMeal',
           element: <Recipe />
       }, {
         path: '/thoughts/:thoughtId',

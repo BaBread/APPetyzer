@@ -1,4 +1,3 @@
-import './App.css';
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
 // import chakraTheme from '@chakra-ui/theme';
 import {
@@ -23,13 +22,16 @@ const colors = {
     white: '#F4EBBE',
   }
 }
+
+
 // const { Button } = chakraTheme.components
 
 const theme = extendBaseTheme({
   colors,
-  // components: {
-  //   Button,
-  // },
+  fonts: {
+    heading: 'Josefin Sans, sans-serif',
+    body: 'Lato, sans-serif',
+  }
 })
 
 // Construct our main GraphQL API endpoint
