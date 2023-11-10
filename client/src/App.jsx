@@ -1,4 +1,3 @@
-import './App.css';
 import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
 // import chakraTheme from '@chakra-ui/theme';
 import {
