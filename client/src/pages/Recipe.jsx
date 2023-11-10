@@ -1,14 +1,16 @@
 import { Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_THOUGHTS } from '../utils/queries';
 import { Box, Image, Card, CardHeader, CardBody, CardFooter, Text, StackDivider, HStack, VStack, List, ListItem, ListIcon, Link as ChakraLink } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
+import { FaHeart } from 'react-icons/fa';
 
 
 function Recipe() {
     const { idMeal } = useParams();
     const [recipeResult, setRecipeResult] = useState([]);
+    const [isLiked, setIsLiked] = useState(false);
   
     useEffect(() => {
       // Perform the fetch request or any asynchronous operation to get search results
@@ -42,33 +44,45 @@ for (let i = 1; i <= 20; i++) {
             {measurement} {ingredient}
         </li>
     )
-}
+};
+
+const handleLikeToggle = () => {
+    setIsLiked(!isLiked);
+};
 
   return (
     <Box bg='brand.gray'>
         <Card>
-            <Text fontSize='4xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600' pb={8}>{recipeResult.strMeal}</Text>
+            <Box display='flex' flexDirection='column' alignItems='center'>
+            <HStack alignItems='center'>
+            <Text fontSize='6xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600' fontFamily='Josefin Sans, sans-serif' pb={8}>{recipeResult.strMeal}</Text>
+            <div style={{ fontSize: '2rem' }}>
+            <FaHeart color={isLiked ? 'red' : 'black'} onClick={handleLikeToggle} />
+            </div>
+            </HStack>
+            </Box>
             <CardHeader display='flex' justifyContent='center' alignItems='center' pb={8}>
                 <Box>
                 <Image
                 src={recipeResult.strMealThumb} 
                 alt={recipeResult.strMeal}
                 borderRadius='lg'
+                pl={4}
                 />
                 </Box>
                     <Box flex='1' display='flex' flexDirection='column' alignItems='center'>
                     <VStack>
-                        <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='blue.800'>
+                        <Text fontSize='xl' fontWeight='bold' textDecoration='underline' align='center' color='blue.800'>
                                 Category: {recipeResult.strCategory}
                         </Text>
-                        <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='white.800' mb={16}>
+                        <Text fontSize='xl' fontWeight='bold' textDecoration='underline' align='center' color='white.800' mb={8}>
                                 Origin:  {recipeResult.strArea}
                         </Text>
                     </VStack>
-                    <Text fontSize='2xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600'>
+                    <Text fontSize='3xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600' fontFamily='Josefin Sans, sans-serif'>
                             Ingredients
                         </Text>  
-                        <List spacing={3}>
+                        <List spacing={3} fontFamily='Edu Tas Beginner, cursive'>
                             {ingredients.map((ingredient, index) => (
                                 <ListItem key={index}>
                                     <HStack space={2}>
@@ -84,10 +98,10 @@ for (let i = 1; i <= 20; i++) {
             <CardBody pb={8}>
                 <HStack divider={<StackDivider />} spacing='4'>
                 <Box flex='1'>
-                    <Text fontSize='2xl' fontWeight='bold' textDecoration='underline'  align='center' color='green.600'>
+                    <Text fontSize='3xl' fontWeight='bold' textDecoration='underline'  align='center' color='green.600' fontFamily='Josefin Sans, sans-serif'>
                             Directions
                         </Text>
-                        <Text>
+                        <Text fontSize='xl'>
                             {recipeResult.strInstructions}
                         </Text>
                 </Box>
@@ -101,6 +115,7 @@ for (let i = 1; i <= 20; i++) {
                 textDecoration="underline"
                 fontWeight="bold"
                 color='blue'
+                fontSize='xl'
                 align='center'
                 >
                 Video Instructions
