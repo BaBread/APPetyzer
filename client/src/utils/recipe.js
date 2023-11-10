@@ -1,7 +1,7 @@
 const APIKey = process.env.MealKey;
 
 function getRandomRecipe() {
-    let queryURL = "www.themealdb.com/api/json/v1/1/random.php"
+    let queryURL = `www.themealdb.com/api/json/v2/${APIKey}/randomselection.php`
 $.ajax({
     url: queryURL,
     method: "GET"
