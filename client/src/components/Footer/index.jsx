@@ -1,56 +1,96 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Box,
+  SimpleGrid,
+  Stack,
+  Heading,
+  Divider,
+  Button,
+  Text,
+  Image,
+  HStack,
+  Spacer,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 
 const Footer = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
-      <div>
-        <h2>About Us</h2>
-        <Link>
-          <h3
-            className="m-1 text-red" to="/:github${user}">Charles Chavis
-          </h3>
-        </Link>
-        <Link>
-          <h3
-            className="m-1 text-red" to="/:github${user}">Donald Leon
-          </h3>
-        </Link>
-        <Link>
-          <h3
-            className="m-1 text-red" to="/:github${user}">Ricky Carter
-          </h3>
-        </Link>
-        <Link>
-          <h3
-            className="m-1 text-red" to="/:github${user}">Robert Campbell Van Vliet II
-          </h3>
-        </Link>
-      </div>
-      <div className="container text-center mb-5">
-        {location.pathname !== '/' && (
-          <button
-            className="btn btn-dark mb-3"
-            onClick={() => navigate(-1)}
-          >
-            &larr; Go Back
-          </button>
-        )}
-        <h2>
-          Made with{' '}
-          <span
-            className="emoji"
-            role="img"
-            aria-label="heart"
-            aria-hidden="false"
-          >
-            ❤️
-          </span>{' '}
-          by the Tech Thoughts team.
-        </h2>
-      </div>
-    </footer>
+    <Box as="footer" w="100%" mt="auto" bg="brand.green" p={4}>
+      <HStack spacing={2} align="center" mb={{ base: 4, md: 0 }}>
+        <Button
+          colorScheme="red"
+          variant="solid"
+          ml={16}
+          onClick={() => {
+            /* Handle 'Refer a Friend' action */
+          }}
+        >
+          Refer a Friend
+        </Button>
+        <Spacer />
+        <Button
+          colorScheme="red"
+          variant="solid"
+          mr={16}
+          onClick={() => {
+            /* Handle 'Donate' action */
+          }}
+        >
+          Donate
+        </Button>
+      </HStack>
+      <Heading as="h2" fontSize="xl" mt={3} align="center">
+        Made with{" "}
+        <span role="img" aria-label="heart" aria-hidden="false">
+          ❤️
+        </span>{" "}
+        by the Appetyzer team.
+      </Heading>
+      <HStack
+        spacing={2}
+        align="center"
+        justify="center"
+        mb={{ base: 4, md: 0 }}
+      >
+        <Box
+          as={Link}
+          to="/:github${user}"
+          _hover={{ color: "blue.500" }}
+          fontSize="2xl"
+          textDecoration="underline"
+        >
+          <Text m={1}>Charles Chavis</Text>
+        </Box>
+        <Box
+          as={Link}
+          to="/:github${user}"
+          _hover={{ color: "blue.500" }}
+          fontSize="2xl"
+          textDecoration="underline"
+        >
+          <Text m={1}>Donald Leon</Text>
+        </Box>
+        <Box
+          as={Link}
+          to="/:github${user}"
+          _hover={{ color: "blue.500" }}
+          fontSize="2xl"
+          textDecoration="underline"
+        >
+          <Text m={1}>Ricky Carter</Text>
+        </Box>
+        <Box
+          as={Link}
+          to="/:github${user}"
+          _hover={{ color: "blue.500" }}
+          fontSize="2xl"
+          textDecoration="underline"
+        >
+          <Text m={1}>Robert Campbell Van Vliet II</Text>
+        </Box>
+      </HStack>
+    </Box>
   );
 };
 

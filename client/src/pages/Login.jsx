@@ -4,6 +4,20 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
+import {
+  Box,
+  Input,
+  Flex,
+  Heading,
+  Divider,
+  Button,
+  Text,
+  Image,
+  Card,
+  CardBody,
+  CardFooter,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -41,53 +55,63 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      minH="calc(100vh - 240px)"
+      bg='brand.gray'
+    >
+      <Box w="full" maxW="lg" p={6}>
+        <Box bg="brand.black" p={8} borderRadius="lg">
+          <Heading as="h4" size="md" color="white" mb={4}>
+            Login
+          </Heading>
+          <Box>
             {data ? (
-              <p>
+              <Text color="green.500">
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
-              </p>
+              </Text>
             ) : (
               <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
+                <Input
                   placeholder="Your email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
+                  mb={4}
+                  color="white" 
                 />
-                <input
-                  className="form-input"
-                  placeholder="******"
+                <Input
+                  placeholder="Your Password"
                   name="password"
                   type="password"
                   value={formState.password}
                   onChange={handleChange}
+                  mb={4}
+                  color="white"
                 />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
+                <Button
+                  colorScheme="green"
+                  size="lg"
                   type="submit"
+                  isFullWidth
                 >
                   Submit
-                </button>
+                </Button>
               </form>
             )}
-
             {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
+              <Box mt={4} bg="red.500" p={3} borderRadius="md">
+                <Text color="white">{error.message}</Text>
+              </Box>
             )}
-          </div>
-        </div>
-      </div>
-    </main>
+          </Box>
+        </Box>
+      </Box>
+    </Flex>
   );
 };
 

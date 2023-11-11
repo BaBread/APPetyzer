@@ -52,7 +52,7 @@ const handleLikeToggle = () => {
 
   return (
     <Box bg='brand.gray'>
-        <Card>
+        <Card bg='brand.gray'>
             <Box display='flex' flexDirection='column' alignItems='center'>
             <HStack alignItems='center'>
             <Text fontSize='6xl' fontWeight='bold' textDecoration='underline' align='center' color='green.600' fontFamily='Josefin Sans, sans-serif' pb={8}>{recipeResult.strMeal}</Text>
