@@ -1,9 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { Box, Image, Text, Heading, VStack, HStack, Link as ChakraLink } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import {
+  Box,
+  Image,
+  Text,
+  Heading,
+  VStack,
+  Divider,
+  Stack,
+  SimpleGrid,
+  Card,
+  CardBody,
+  CardFooter,
+  Button,
+  Center,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 
 function RecipeInstructions({ instructions }) {
-  const instructionSteps = instructions.split('\n').filter(step => step.trim() !== '');
+  const instructionSteps = instructions
+    .split("\n")
+    .filter((step) => step.trim() !== "");
 
   return (
     <VStack align="start" spacing={2}>
@@ -34,53 +51,66 @@ function SearchResultsPage() {
         setSearchResults(data.meals || []);
       })
       .catch((error) => {
-        console.error('Error with fetch request:', error);
+        console.error("Error with fetch request:", error);
       });
   }, [searchTerm]);
 
   return (
-    <Box>
-      <Heading as="h2" mb={4}>
-        Search Results for: {searchTerm}
-      </Heading>
-      <HStack spacing={4} flexWrap="wrap">
+    <Box bg="brand.gray" pt={12} pb={12}>
+      <SimpleGrid columns={5} spacing={4} align="center">
         {searchResults.map((result) => (
-          <Box
-            key={result.idMeal}
-            className="result-box"
-            maxW="sm"
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            m={2}
-          >
-            <Image src={result.strMealThumb} alt={result.strMeal} />
-            <VStack align="start" p={6} spacing={2}>
-              <Heading as="h2" size="lg" fontWeight="bold">
-                {result.strMeal}
-              </Heading>
-              <Text>Category: {result.strCategory}</Text>
-              <Text>Region of Origin: {result.strArea}</Text>
-              <RecipeInstructions instructions={result.strInstructions} />
-              <HStack>
-                <Text>Visual Instructions:</Text>
+          <Box key={result.id} as="article">
+            <Card
+              maxW="300px"
+              mx="auto"
+              mb={16}
+              border="2px"
+              borderColor="gray.300"
+              borderRadius="lg"
+              p={4}
+              bg="brand.blue"
+            >
+              <Link to={`/Recipe/${result.idMeal}`}>
+                <Image
+                  src={result.strMealThumb}
+                  alt={result.strMeal}
+                  borderRadius="lg"
+                />
+              </Link>
+              <CardBody>
+                <Stack mt="6" spacing="3">
+                  <Text fontSize="3xl" align="center" color="gray.800" as="u">
+                    {result.strMeal}
+                  </Text>
+                  <Text color="green.600" fontSize="2xl" align="center">
+                    {result.strCategory}
+                  </Text>
+                </Stack>
+              </CardBody>
+              <Divider />
+              <CardFooter
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <ChakraLink
                   href={result.strYoutube}
                   target="_blank"
                   rel="noopener noreferrer"
                   textDecoration="underline"
                   fontWeight="bold"
+                  color="blue"
+                  align="center"
                 >
-                  {result.strYoutube}
+                  Video Instructions
                 </ChakraLink>
-              </HStack>
-            </VStack>
+              </CardFooter>
+            </Card>
           </Box>
         ))}
-      </HStack>
+      </SimpleGrid>
     </Box>
   );
 }
 
 export default SearchResultsPage;
-
