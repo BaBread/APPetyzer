@@ -32,6 +32,7 @@ const Header = () => {
   const handleSearch = () => {
     if (searchTerm.trim() !== "") {
       performFetchSearch(searchTerm);
+
     }
   };
 
@@ -49,6 +50,7 @@ const Header = () => {
         const results = data.meals;
         console.log(results);
         setSearchResults(results);
+
 
         window.location.href = `/search-results/${term}`;
       })
@@ -90,6 +92,7 @@ const Header = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Link to="/search-results">
+
             <Button onClick={handleSearch} ml={2}>
               Search
             </Button>
