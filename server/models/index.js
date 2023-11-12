@@ -1,4 +1,4 @@
 const User = require('./User');
-const Thought = require('./Thought'); // favorRecipe = ./recipe
+const favoriteRecipe = require('./favoriteRecipe'); // favoriteRecipe = ./RecipeSchema
 
-module.exports = { User, Thought }; //favoriteRecipe
+module.exports = { User, favoriteRecipe };
