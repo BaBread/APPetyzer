@@ -1,4 +1,4 @@
-import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 // import chakraTheme from '@chakra-ui/theme';
 import {
   ApolloClient,
@@ -26,7 +26,7 @@ const colors = {
 
 // const { Button } = chakraTheme.components
 
-const theme = extendBaseTheme({
+const theme = extendTheme({
   colors,
   fonts: {
     heading: 'Josefin Sans, sans-serif',
@@ -60,7 +60,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ChakraBaseProvider theme={theme}>
+    <ChakraProvider theme={theme}>
       <ApolloProvider client={client}>
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
@@ -70,7 +70,7 @@ function App() {
           <Footer />
         </div>
       </ApolloProvider>
-    </ChakraBaseProvider>
+    </ChakraProvider>
   );
 }
 
