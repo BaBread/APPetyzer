@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-
-
 // QUERY USER 
 export const QUERY_USER = gql`
   query user($username: String!) {
@@ -17,14 +15,12 @@ export const QUERY_USER = gql`
   }
 `;
 
-
 // GET All RECIPES 
 export const QUERY_FAVORITE_RECIPES = gql`
-query getFavoriteRecipes($recipeIds: [ID]!) {
-  favoriteRecipes(filter: { _id: { $in: $recipeIds } }) {
-    _id
+  query getFavoriteRecipes($recipeIds: [ID]!) {
+    favoriteRecipes(filter: { _id: { $in: $recipeIds } }) {
+      _id
+    }
   }
-}
 `;
-
 

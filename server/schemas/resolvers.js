@@ -1,5 +1,7 @@
+
+const { default: mongoose } = require('mongoose');
 const { User, favoriteRecipe } = require('../models');
-const { signToken, AuthenticationError: CustomAuthenticationError } = require('../utils/auth');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 
 const resolvers = {
@@ -7,13 +9,24 @@ const resolvers = {
     users: async () => {
       return User.find();
     },
-    user: async (__, { username }) => {
+    user: async (_, { username }) => {
       return User.findOne({ username });
     },
-    recipeById: async (__, { idMeal }) => {
-      return favoriteRecipe.findOne({ _id: idMeal }).sort({AddedOn: -1});
+    recipeById: async (_, { idMeal }) => {
+      try {
+        const objectId = new mongoose.Types.ObjectId(idMeal);
+
+        // Assuming your favoriteRecipe model has a field named 'AddedOn' for sorting
+        const recipe = await favoriteRecipe.findOne({ _id: objectId }).sort({ AddedOn: -1 });
+
+        return recipe;
+      } catch (error) {
+        console.error('Error fetching recipe by ID:', error.message);
+        throw new Error('Error fetching recipe by ID');
+      }
     },
   },
+
 
  Mutation: {
     addUser: async (__, { username, email, password }) => {
@@ -26,13 +39,13 @@ const resolvers = {
         const user = await User.findOne({ email });
     
         if (!user) {
-          throw new CustomAuthenticationError('Invalid email or password');
+          throw new AuthenticationError('Invalid email or password');
         }
     
         const correctPw = await user.isCorrectPassword(password);
     
         if (!correctPw) {
-          throw new CustomAuthenticationError('Invalid email or password');
+          throw new AuthenticationError('Invalid email or password');
         }
     
         const token = signToken(user);
@@ -45,9 +58,11 @@ const resolvers = {
     
     addRecipe: async (__, { idMeal }, context) => {
       try {
+        console.log('Context:', context);
+        console.log('idMeal:', idMeal);
         // Check if the user is authenticated
         if (!context.user) {
-          throw new CustomAuthenticationError('You must be logged in to add a recipe');
+          throw new AuthenticationError('You must be logged in to add a recipe');
         }
     
         // Check if the recipe already exists
@@ -63,22 +78,18 @@ const resolvers = {
           { $addToSet: { recipes: newRecipe._id } }
         );
     
-        return newRecipe;
+        return { idMeal: newRecipe._id };
       } catch (error) {
-        if (error instanceof CustomAuthenticationError) {
-          throw error; // Re-throw the custom error directly
-        } else {
-          throw new Error(`Failed to add recipe: ${error.message}`);
-        }
+        console.error('Error in addRecipe resolver:', error);
+        throw new Error(`Failed to add recipe: ${error.message}`);
       }
     },
-    
 
     deleteRecipe: async (__, { idMeal }, context) => {
       try {
         // Check if the user is authenticated
         if (!context.user) {
-          throw new CustomAuthenticationError('You must be logged in to delete a recipe');
+          throw new AuthenticationError('You must be logged in to delete a recipe');
         }
 
         // Check if the recipe exists
@@ -89,7 +100,7 @@ const resolvers = {
 
         // Check if the user owns the recipe
         if (!context.user.recipes.includes(existingRecipe._id.toString())) {
-          throw new CustomAuthenticationError("You don't have permission to delete this recipe");
+          throw new AuthenticationError("You don't have permission to delete this recipe");
         }
 
         // Remove the recipe from the user's recipes
