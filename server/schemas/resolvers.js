@@ -1,5 +1,6 @@
 const { User, favoriteRecipe } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { signToken, AuthenticationError: CustomAuthenticationError } = require('../utils/auth');
+
 
 const resolvers = {
   Query: {
@@ -14,60 +15,70 @@ const resolvers = {
     },
   },
 
-  favoriteRecipe: {
+ Mutation: {
     addUser: async (__, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
     login: async (__, { email, password }) => {
-      const user = await User.findOne({ email });
-
-      if (!user) {
-        throw AuthenticationError;
+      try {
+        const user = await User.findOne({ email });
+    
+        if (!user) {
+          throw new CustomAuthenticationError('Invalid email or password');
+        }
+    
+        const correctPw = await user.isCorrectPassword(password);
+    
+        if (!correctPw) {
+          throw new CustomAuthenticationError('Invalid email or password');
+        }
+    
+        const token = signToken(user);
+    
+        return { token, user };
+      } catch (error) {
+        throw new Error(`Login failed: ${error.message}`);
       }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw AuthenticationError;
-      }
-
-      const token = signToken(user);
-
-      return { token, user };
     },
+    
     addRecipe: async (__, { idMeal }, context) => {
       try {
         // Check if the user is authenticated
         if (!context.user) {
-          throw new AuthenticationError('You must be logged in to add a recipe');
+          throw new CustomAuthenticationError('You must be logged in to add a recipe');
         }
-
+    
         // Check if the recipe already exists
         const existingRecipe = await favoriteRecipe.findOne({ _id: idMeal });
         if (existingRecipe) {
           throw new Error('Recipe already exists');
         }
-
+    
         // Create a new recipe and associate it with the user
         const newRecipe = await favoriteRecipe.create({ _id: idMeal, AddedOn: new Date() });
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { recipes: newRecipe._id } }
         );
-
+    
         return newRecipe;
       } catch (error) {
-        throw new Error(`Failed to add recipe: ${error.message}`);
+        if (error instanceof CustomAuthenticationError) {
+          throw error; // Re-throw the custom error directly
+        } else {
+          throw new Error(`Failed to add recipe: ${error.message}`);
+        }
       }
     },
+    
 
     deleteRecipe: async (__, { idMeal }, context) => {
       try {
         // Check if the user is authenticated
         if (!context.user) {
-          throw new AuthenticationError('You must be logged in to delete a recipe');
+          throw new CustomAuthenticationError('You must be logged in to delete a recipe');
         }
 
         // Check if the recipe exists
@@ -78,7 +89,7 @@ const resolvers = {
 
         // Check if the user owns the recipe
         if (!context.user.recipes.includes(existingRecipe._id.toString())) {
-          throw new AuthenticationError("You don't have permission to delete this recipe");
+          throw new CustomAuthenticationError("You don't have permission to delete this recipe");
         }
 
         // Remove the recipe from the user's recipes
