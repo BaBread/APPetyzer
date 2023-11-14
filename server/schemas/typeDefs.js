@@ -1,6 +1,7 @@
 const typeDefs = `
   type User {
     _id: ID
+    favorites: String
     username: String
     email: String
     password: String
@@ -9,20 +10,27 @@ const typeDefs = `
   type Auth {
     token: ID!
     user: User
+    
   }
+
+
+type Recipe {
+  idMeal: ID
+}
 
   type Query {
     users: [User]
     user(username: String!): User
-    recipeById(idMeal: ID!): [favoriteRecipe]
+    recipeById(idMeal: ID!): Recipe
   }
 
-  type favoriteRecipe {
+  type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addRecipe(idMeal: ID!): favoriteRecipe
-    deleteRecipe(idMeal: ID!): favoriteRecipe  
+    addRecipe(idMeal: String!): User
+    deleteRecipe(idMeal: ID!): Recipe 
   }
 `;
 
 module.exports = typeDefs;
+
