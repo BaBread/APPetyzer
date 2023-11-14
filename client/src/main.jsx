@@ -9,6 +9,7 @@ import Login from './pages/Login';
 
 import ErrorPage from './pages/ErrorPage';
 import SearchResultsPage from './pages/SearchResultsPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,14 +27,17 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />
       }, {
-          path: '/Recipe/:idMeal',
-          element: <Recipe />
+        path: '/Recipe/:idMeal',
+        element: <Recipe />
       }, {
         path: '/search-results',
         element: <SearchResultsPage />
       }, {
         path: '/search-results/:searchTerm',
         element: <SearchResultsPage />
+      }, {
+        path: '/profilepage',
+        element: <ProfilePage />
       }
     ]
   },
