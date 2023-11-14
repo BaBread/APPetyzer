@@ -56,7 +56,7 @@ const resolvers = {
       }
     },
     
-    addRecipe: async (__, { idMeal }, context) => {
+    addRecipe: async (parent, { idMeal }, context) => {
       // const newId = "6552a51003c5d2c64a8f7566"
       try {
         console.log('Context:', context);
@@ -74,7 +74,8 @@ const resolvers = {
     
         // Create a new recipe and associate it with the user
         // const newRecipe = await favoriteRecipe.create({ _id: idMeal, AddedOn: new Date() });
-        await User.findOneAndUpdate(
+        
+        return await User.findOneAndUpdate(
           // {_id: newId},
           { _id: context.user._id },
           { $addToSet: { favorites: idMeal } },
@@ -85,12 +86,12 @@ const resolvers = {
             }
           
         )
-          
-        return { idMeal };
+        // let returnThis = context.user;
+        // return { returnThis };
        
       } catch (error) {
         console.error('Error in addRecipe resolver:', error);
-        throw new Error(`Failed to add recipe: ${error.message}`);
+        // throw new Error(`Failed to add recipe: ${error.message}`);
       }
     },
 
