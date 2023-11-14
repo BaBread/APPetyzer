@@ -237,7 +237,7 @@ const Footer = () => {
       >
         <Box
           as={Link}
-          to="/:github${user}"
+          to="https://main--lively-khapse-b22e43.netlify.app/"
           _hover={{ color: "blue.500" }}
           fontSize="2xl"
           textDecoration="underline"
@@ -246,7 +246,7 @@ const Footer = () => {
         </Box>
         <Box
           as={Link}
-          to="/:github${user}"
+          to="https://babread.github.io/IntoTheWorld"
           _hover={{ color: "blue.500" }}
           fontSize="2xl"
           textDecoration="underline"
@@ -255,7 +255,7 @@ const Footer = () => {
         </Box>
         <Box
           as={Link}
-          to="/:github${user}"
+          to="https://rrciii.github.io/Working_Portfolio"
           _hover={{ color: "blue.500" }}
           fontSize="2xl"
           textDecoration="underline"
@@ -264,7 +264,7 @@ const Footer = () => {
         </Box>
         <Box
           as={Link}
-          to="/:github${user}"
+          to="https://rvanvlietii.github.io/My-Portfolio-Showcase"
           _hover={{ color: "blue.500" }}
           fontSize="2xl"
           textDecoration="underline"
