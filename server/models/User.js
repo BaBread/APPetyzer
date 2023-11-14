@@ -21,7 +21,7 @@ const userSchema = new Schema({
   },
   favorites: [
     {
-      type: Schema.Types.String
+      type: String
     },
   ],
 });

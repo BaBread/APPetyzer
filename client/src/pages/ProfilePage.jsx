@@ -23,10 +23,9 @@ import {
     Link as ChakraLink,
 } from "@chakra-ui/react";
 
-let myRecipes = Auth.getProfile().data.favorites;
-console.log(myRecipes);
 
-< Text ><span>My Account</span>
+
+{/* < Text ><span>My Account</span>
 
     <span fontSize="2xl" as="em" color='brand.black'>
         My Username: {Auth.getProfile().data.username}!
@@ -38,9 +37,11 @@ console.log(myRecipes);
         My Username: {Auth.getProfile().data.username}!
     </span>
 
-</Text >
+</Text > */}
 
 const ProfilePage = () => {
+    let myRecipes = Auth.getProfile().data.favorites;
+    console.log(myRecipes);
     const [myMeals, setMyMeals] = useState([]);
     let myMealsArray = [];
     useEffect(() => {

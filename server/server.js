@@ -14,8 +14,7 @@ const app = express();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
-  introspection: true,
+  resolvers
   // context: ({ req }) => ({ ...req }), 
   // plugins: [
   //   {
