@@ -1,4 +1,6 @@
+// import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
+
 
 // LOGIN_USER
 export const LOGIN_USER = gql`
@@ -29,7 +31,7 @@ export const ADD_USER = gql`
 // ADD FAVORITE RECIPE 
 export const ADD_RECIPE = gql`
   mutation addRecipe($idMeal: ID!) {
-    addRecipe(favoriteRecipeId: $idMeal) {
+    addRecipe(idMeal: $idMeal) {
       _id   
     }
   }
