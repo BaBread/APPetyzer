@@ -57,6 +57,7 @@ const resolvers = {
     },
     
     addRecipe: async (__, { idMeal }, context) => {
+      // const newId = "6552a51003c5d2c64a8f7566"
       try {
         console.log('Context:', context);
         console.log('idMeal:', idMeal);
@@ -66,19 +67,27 @@ const resolvers = {
         }
     
         // Check if the recipe already exists
-        const existingRecipe = await favoriteRecipe.findOne({ _id: idMeal });
-        if (existingRecipe) {
-          throw new Error('Recipe already exists');
-        }
+        // const existingRecipe = await favoriteRecipe.findOne({ idMeal });
+        // if (existingRecipe) {
+        //   throw new Error('Recipe already exists');
+        // }
     
         // Create a new recipe and associate it with the user
-        const newRecipe = await favoriteRecipe.create({ _id: idMeal, AddedOn: new Date() });
+        // const newRecipe = await favoriteRecipe.create({ _id: idMeal, AddedOn: new Date() });
         await User.findOneAndUpdate(
+          // {_id: newId},
           { _id: context.user._id },
-          { $addToSet: { recipes: newRecipe._id } }
-        );
-    
-        return { idMeal: newRecipe._id };
+          { $addToSet: { favorites: idMeal } },
+
+           {
+              new: true,
+              runValidators: true,
+            }
+          
+        )
+          
+        return { idMeal };
+       
       } catch (error) {
         console.error('Error in addRecipe resolver:', error);
         throw new Error(`Failed to add recipe: ${error.message}`);

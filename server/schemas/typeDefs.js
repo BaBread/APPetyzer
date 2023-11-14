@@ -1,6 +1,7 @@
 const typeDefs = `
   type User {
     _id: ID
+    favorites: String
     username: String
     email: String
     password: String
@@ -26,7 +27,7 @@ type Recipe {
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addRecipe(idMeal: ID!): Recipe
+    addRecipe(idMeal: String!): User
     deleteRecipe(idMeal: ID!): Recipe 
   }
 `;

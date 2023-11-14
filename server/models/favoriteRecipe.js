@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 
 const favoriteRecipeSchema = new Schema({
-  _id: Schema.Types.ObjectId,
+  idMeal: Schema.Types.String,
   AddedOn: {
             type: Date,
             default: Date.now,
