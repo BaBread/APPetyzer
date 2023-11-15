@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../../utils/queries';
 import Auth from "../../utils/auth";
 import {
   Box,
@@ -21,8 +23,16 @@ import {
 } from "@chakra-ui/react";
 
 const Header = () => {
+  const { loading, data } = useQuery(QUERY_ME);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+
+    if (data && !loading) {
+      console.log(data);
+    };
+  }, [data]);
 
   const logout = (event) => {
     event.preventDefault();
@@ -102,7 +112,8 @@ const Header = () => {
           <Text fontSize="2xl" as="em" color='brand.black'>
             {Auth.loggedIn() ? (
               <>
-                <span>Hey there, {Auth.getProfile().data.username}!</span>
+                {!loading && data && (
+                  <span>Hey there, {data.me.username}!</span>)}
                 <Button className="btn btn-lg btn-light m-2" ml={5} onClick={logout}>
                   Logout
                 </Button>
