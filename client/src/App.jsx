@@ -1,5 +1,4 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-// import chakraTheme from '@chakra-ui/theme';
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,7 +11,6 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-//ChakraUI button and theme
 const colors = {
   brand: {
     black: '#313628',
@@ -22,9 +20,6 @@ const colors = {
     white: '#F4EBBE',
   }
 }
-
-
-// const { Button } = chakraTheme.components
 
 const theme = extendTheme({
   colors,

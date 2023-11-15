@@ -4,18 +4,12 @@ import { QUERY_ME } from '../utils/queries';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
-// import { APIKey } from '../utils/recipe';
 
 import {
     Box,
     SimpleGrid,
-    GridItem,
     Stack,
-    HStack,
-    Input,
-    Heading,
     Divider,
-    Button,
     Text,
     Image,
     Card,

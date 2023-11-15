@@ -31,7 +31,6 @@ function Recipe() {
   const [deleteRecipe] = useMutation(DELETE_RECIPE);
 
   useEffect(() => {
-    // Perform the fetch request or any asynchronous operation to get search results
     const recipeUrl = `https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=${idMeal}`;
 
     fetch(recipeUrl)
@@ -75,7 +74,6 @@ function Recipe() {
 
     try {
       if (isLiked) {
-        // If already liked, remove the recipe from favorites
         const response = await deleteRecipe({
           variables: { idMeal },
         });
@@ -86,7 +84,6 @@ function Recipe() {
           console.log(`Recipe with ID "${idMeal}" removed from favorites!`);
         }
       } else {
-        // If not liked, add the recipe to favorites
         const response = await addRecipe({
           variables: { idMeal },
         });

@@ -29,7 +29,6 @@ const resolvers = {
       try {
         const objectId = new mongoose.Types.ObjectId(idMeal);
 
-        // Assuming your favoriteRecipe model has a field named 'AddedOn' for sorting
         const recipe = await favoriteRecipe
           .findOne({ _id: objectId })
           .sort({ AddedOn: -1 });
@@ -72,7 +71,6 @@ const resolvers = {
 
     addRecipe: async (__, { idMeal }, context) => {
       try {
-        // Check if the user is authenticated
         if (!context.user) {
           throw new AuthenticationError(
             "You must be logged in to add a recipe"
@@ -90,19 +88,16 @@ const resolvers = {
         );
       } catch (error) {
         console.error("Error in addRecipe resolver:", error);
-        // throw new Error(`Failed to add recipe: ${error.message}`);
       }
     },
 
     deleteRecipe: async (__, { idMeal }, context) => {
       try {
-        // Check if the user is authenticated
         if (!context.user) {
           throw new AuthenticationError(
             "You must be logged in to delete a recipe"
           );
         }
-        // Remove the recipe from the user's recipes
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { favorites: idMeal } },
@@ -136,16 +131,14 @@ const resolvers = {
     donate: async (_, { token, amount }) => {
       try {
       const charge = await stripe.charges.create({
-        amount,          // amount in cents
-        currency: 'usd', // or your preferred currency
-        source: token,   // token received from the client
-        description: 'Donation to Appetyzer, Thank You for Keeping Helping Us Maintain this App', // or your description
+        amount,          
+        currency: 'usd', 
+        source: token,   
+        description: 'Donation to Appetyzer, Thank You for Keeping Helping Us Maintain this App', 
       });
 
-      // If the charge was successful, you can handle it here
       console.log('Stripe charge:', charge);
 
-      // Placeholder code assuming the charge was successful
       const success = true;
       const message = 'Donation successful';
 
@@ -153,7 +146,6 @@ const resolvers = {
     } catch (error) {
       console.error('Error processing donation:', error);
 
-      // Placeholder code assuming an error occurred
       return { success: false, errorMessage: 'Error processing donation' };
       }
     }
