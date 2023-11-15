@@ -1,6 +1,5 @@
 // import { useQuery } from '@apollo/client';
-import { gql } from '@apollo/client';
-
+import { gql } from "@apollo/client";
 
 // LOGIN_USER
 export const LOGIN_USER = gql`
@@ -28,22 +27,21 @@ export const ADD_USER = gql`
   }
 `;
 
-// ADD FAVORITE RECIPE 
+// ADD FAVORITE RECIPE
 export const ADD_RECIPE = gql`
-  mutation addRecipe($idMeal: ID!) {
+  mutation addRecipe($idMeal: String!) {
     addRecipe(idMeal: $idMeal) {
-      _id   
+      _id
     }
   }
 `;
 
-
 // DELETE FAVORITE RECIPE
 export const DELETE_RECIPE = gql`
-  mutation deleteRecipe($idMeal: ID!) {
+  mutation DeleteRecipe($idMeal: ID!) {
     deleteRecipe(idMeal: $idMeal) {
-      success
-      message
+      favorites
+      _id
     }
   }
 `;

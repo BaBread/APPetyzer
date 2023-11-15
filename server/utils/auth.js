@@ -1,35 +1,6 @@
-// const { AuthenticationError: ApolloAuthenticationError } = require('apollo-server-express');
-// const { GraphQLError } = require('graphql');  // Import GraphQLError
-
-// const jwt = require('jsonwebtoken');
-
-// class AuthenticationError extends GraphQLError {
-//   constructor() {
-//     super('Could not authenticate user.', {
-//       extensions: {
-//         code: 'UNAUTHENTICATED',
-//       },
-//     });
-//   }
-// }
-
-// const secret = process.env.JWT_SECRET;
-// const expiration = '72h';
-
-// module.exports = {
-//   AuthenticationError,
-//   ApolloAuthenticationError,
-//   signToken: function ({ email, username, _id }) {
-//     const payload = { email, username, _id };
-//     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
-//   },
-// };
-
-// OLD Auth
-
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-const secret = 'mysecretssshhhhhhh';
+const secret = `${process.env.JWT_SECRET}`;
 const expiration = '2h';
 module.exports = {
   AuthenticationError: new GraphQLError('Could not authenticate user.', {
@@ -40,7 +11,7 @@ module.exports = {
   authMiddleware: function ({ req }) {
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
-    // console.log(token);
+    
     // We split the token string into an array and return actual token
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();

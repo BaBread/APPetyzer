@@ -15,7 +15,7 @@ const typeDefs = `
 
 
 type Recipe {
-  idMeal: ID
+  idMeal: String
 }
 
   type Query {
@@ -29,7 +29,7 @@ type Recipe {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addRecipe(idMeal: String!): User
-    deleteRecipe(idMeal: ID!): Recipe 
+    deleteRecipe(idMeal: ID!): User  
     sendEmail(friendName: String!, friendEmail: String!): String
     donate(token: String!, amount: Int!): DonationResponse
   }
@@ -38,6 +38,7 @@ type Recipe {
     success: Boolean!
     message: String
     errorMessage: String
+
   }
 `;
 
