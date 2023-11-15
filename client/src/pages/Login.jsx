@@ -75,7 +75,7 @@ const Login = (props) => {
                   value={formState.email}
                   onChange={handleChange}
                   mb={4}
-                  color="white" 
+                  color="white"
                 />
                 <Input
                   placeholder="Your Password"
