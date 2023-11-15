@@ -15,12 +15,23 @@ export const QUERY_USER = gql`
   }
 `;
 
-// GET All RECIPES 
-export const QUERY_FAVORITE_RECIPES = gql`
-  query getFavoriteRecipes($recipeIds: [ID]!) {
-    favoriteRecipes(filter: { _id: { $in: $recipeIds } }) {
+export const QUERY_ME = gql`
+  query me {
+    me {
       _id
+      username
+      email
+      favorites
     }
   }
 `;
+
+// GET All RECIPES 
+// export const QUERY_FAVORITE_RECIPES = gql`
+//   query getFavoriteRecipes($recipeIds: [ID]!) {
+//     favoriteRecipes(filter: { _id: { $in: $recipeIds } }) {
+//       _id
+//     }
+//   }
+// `;
 

@@ -21,6 +21,7 @@ type Recipe {
   type Query {
     users: [User]
     user(username: String!): User
+    me: User
     recipeById(idMeal: ID!): Recipe
   }
 
