@@ -40,8 +40,8 @@ const Home = () => {
   }, []);
 
   return (
-    <Box bg="brand.gray" pt={12} pb={12}>
-      <SimpleGrid columns={[1, 2, 4, 5]} spacing={4}>
+    <Box bg="brand.gray" pt={12} pb={12} w="100%">
+      <SimpleGrid columns={[1, 2, 3, 5]} spacing={4}>
         {randomMeals.slice(0, 12).map((randomMeal) => (
           <Card
             key={randomMeal.idMeal}
