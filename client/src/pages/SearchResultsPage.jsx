@@ -1,48 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Box,
   Image,
   Text,
-  Heading,
-  VStack,
   Divider,
   Stack,
   SimpleGrid,
   Card,
   CardBody,
   CardFooter,
-  Button,
-  Center,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 
-function RecipeInstructions({ instructions }) {
-  const instructionSteps = instructions
-    .split("\n")
-    .filter((step) => step.trim() !== "");
-
-  return (
-    <VStack align="start" spacing={2}>
-      <Heading as="h3" size="md">
-        Written Instructions:
-      </Heading>
-      <VStack align="start" spacing={1}>
-        {instructionSteps.map((step, index) => (
-          <Text key={index}>{step}</Text>
-        ))}
-      </VStack>
-    </VStack>
-  );
-}
-
 function SearchResultsPage() {
-  const location = useLocation();
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    // Perform the fetch request or any asynchronous operation to get search results
     const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`;
 
     fetch(apiUrl)

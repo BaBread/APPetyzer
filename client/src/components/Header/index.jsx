@@ -118,6 +118,11 @@ const Header = () => {
               <>
                 {!loading && data && (
                   <span>Hey there, {data.me.username}!</span>)}
+                  <Link to="/profilepage">
+                  <Button _hover={{ bg: "blue.500" }} fontSize={{ base: 'lg', md: 'lg' }} textDecoration="underline">
+                    My Profile
+                  </Button>
+                </Link>
                 <Button
                   className="btn btn-lg btn-light m-2"
                   ml={{ base: 0, md: 5 }}
