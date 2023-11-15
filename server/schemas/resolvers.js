@@ -93,11 +93,6 @@ const resolvers = {
           { $pull: { favorites: idMeal } },
           { new: true }
         );
-
-        // Remove the recipe from the favoriteRecipe collection
-        // return await favoriteRecipe.findOneAndDelete({ favorites: idMeal });
-
-        
       } catch (error) {
         throw new Error(`Failed to delete recipe: ${error.message}`);
       }
@@ -105,7 +100,3 @@ const resolvers = {
   },
 };
 module.exports = resolvers;
-
-
-
-  

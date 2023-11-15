@@ -1,7 +1,7 @@
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ADD_RECIPE, DELETE_RECIPE } from "../utils/mutations";
-import {  useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Box,
   Image,
@@ -71,7 +71,6 @@ function Recipe() {
       return;
     }
     setIsLiked(!isLiked);
-    
 
     try {
       if (isLiked) {
@@ -84,12 +83,8 @@ function Recipe() {
 
         if (_id) {
           console.log(`Recipe with ID "${idMeal}" removed from favorites!`);
-        } 
-        
-        
-      
-    } else {
-
+        }
+      } else {
         // If not liked, add the recipe to favorites
         const response = await addRecipe({
           variables: { idMeal },
@@ -99,13 +94,12 @@ function Recipe() {
 
         if (_id) {
           console.log(`Recipe with ID "${idMeal}" added to favorites!`);
-        } 
+        }
       }
     } catch (error) {
       console.error("Error modifying favorites:", error);
     }
   };
-//   handleFavoriteClick();
 
   return (
     <Box bg="brand.gray">
