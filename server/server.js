@@ -15,19 +15,6 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers
-  // context: ({ req }) => ({ ...req }), 
-  // plugins: [
-  //   {
-  //     async requestDidStart() {
-  //       return {
-  //         async willSendResponse({ context }) {
-  //           // Attach authMiddleware to context
-  //           context.authMiddleware = authMiddleware;
-  //         },
-  //       };
-  //     },
-  //   },
-  // ],
 });
 
 
