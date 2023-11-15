@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
@@ -25,53 +26,60 @@ import {
 
 
 
-{/* < Text ><span>My Account</span>
 
-    <span fontSize="2xl" as="em" color='brand.black'>
-        My Username: {Auth.getProfile().data.username}!
-    </span>
-    <span fontSize="2xl" as="em" color='brand.black'>
-        My Email: {Auth.getProfile().data.email}!
-    </span>
-    <span fontSize="2xl" as="em" color='brand.black'>
-        My Username: {Auth.getProfile().data.username}!
-    </span>
-
-</Text > */}
 
 const ProfilePage = () => {
-    let myRecipes = Auth.getProfile().data.favorites;
-    console.log(myRecipes);
+    const { loading, data } = useQuery(QUERY_ME
+    );
     const [myMeals, setMyMeals] = useState([]);
-    let myMealsArray = [];
+
+    const fetchMyMeals = async () => {
+        try {
+            let myMealsArray = [];
+            await Promise.all(
+                data.me.favorites.map(async (favId) => {
+                    const recipeUrl = `https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=${favId}`;
+                    const response = await fetch(recipeUrl);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+                        myMealsArray.push(data.meals[0]);
+                    }
+                }));
+            setMyMeals(myMealsArray);
+        } catch (error) {
+            console.error("Error fetching meals:", error);
+        }
+    };
+
     useEffect(() => {
-        const fetchMyMeals = async () => {
-            try {
-                await Promise.all(
-                    myRecipes.map(async (favId) => {
-                        const recipeUrl = `https://www.themealdb.com/api/json/v2/9973533/lookup.php?i=${favId}`;
-                        const response = await fetch(recipeUrl);
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            myMealsArray.push(data);
-                        }
-                    }));
-                setMyMeals(myMealsArray);
-            } catch (error) {
-                console.error("Error fetching meals:", error);
-            }
+        if (data) {
+            fetchMyMeals()
         };
+    }, [data]);
 
-        fetchMyMeals();
-    }, []);
+
 
     return (
         <Box bg="brand.gray" pt={12} pb={12}>
+            < Text ><span>My Account</span>
+                <br></br>
+                <span fontSize="2xl" as="em" color='brand.black'>
+                    My Username: {data.me.username}!
+                </span>
+                <br></br>
+                <span fontSize="2xl" as="em" color='brand.black'>
+                    My Email: {Auth.getProfile().data.email}!
+                </span>
+                <br></br>
+                <br></br>
+
+            </Text >
             <SimpleGrid columns={[1, 2, 4, 5]} spacing={4}>
-                {myMeals.map((favMeal) => (
+                {myMeals.map((favMeal, index) => (
                     <Card
-                        key={favMeal.idMeal}
+                        key={index}
                         maxW="300px"
                         mx="auto"
                         mb={1}
