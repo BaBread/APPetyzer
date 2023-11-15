@@ -2,7 +2,16 @@
 const { default: mongoose } = require('mongoose');
 const { User, favoriteRecipe } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const nodemailer = require('nodemailer');
 
+
+const transporter = nodemailer.createTransport({
+  service: 'outlook',
+  auth: {
+    user: 'appetyzer@outlook.com',
+    pass: 'groupproject!2345',
+  },
+});
 
 const resolvers = {
   Query: {
@@ -11,6 +20,12 @@ const resolvers = {
     },
     user: async (_, { username }) => {
       return User.findOne({ username });
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw AuthenticationError;
     },
     recipeById: async (_, { idMeal }) => {
       try {
@@ -127,8 +142,54 @@ const resolvers = {
         throw new Error(`Failed to delete recipe: ${error.message}`);
       }
     },
+
+    sendEmail: async (_, { friendName, friendEmail }) => {
+      try {
+        const emailOptions = {
+          from: 'appetyzer@outlook.com',
+          to: friendEmail,
+          subject: 'Referral from Appetyzer',
+          text: `Hi ${friendName},\n\nYou've been referred to Appetyzer. Check it out!\n\nBest regards,\nAppetyzer`,
+        };
+
+        
+        const info = await transporter.sendMail(emailOptions);
+        console.log('Referral email sent:', info);
+
+        return 'Email sent successfully';
+      } catch (error) {
+        console.error('Error sending referral email:', error);
+        throw new Error('Failed to send email');
+      }
+    },
+
+    donate: async (_, { token, amount }) => {
+      try {
+      const charge = await stripe.charges.create({
+        amount,          // amount in cents
+        currency: 'usd', // or your preferred currency
+        source: token,   // token received from the client
+        description: 'Donation to Appetyzer, Thank You for Keeping Helping Us Maintain this App', // or your description
+      });
+
+      // If the charge was successful, you can handle it here
+      console.log('Stripe charge:', charge);
+
+      // Placeholder code assuming the charge was successful
+      const success = true;
+      const message = 'Donation successful';
+
+      return { success, message };
+    } catch (error) {
+      console.error('Error processing donation:', error);
+
+      // Placeholder code assuming an error occurred
+      return { success: false, errorMessage: 'Error processing donation' };
+      }
+    }
   },
 };
+
 module.exports = resolvers;
 
 
