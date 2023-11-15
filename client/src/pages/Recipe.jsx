@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 // import { QUERY_THOUGHTS } from '../utils/queries';
-import { Box, Image, Card, CardHeader, CardBody, CardFooter, Text, StackDivider, HStack, VStack, List, ListItem, ListIcon, Link as ChakraLink } from '@chakra-ui/react';
+import { Box, Image, Card, CardHeader, CardBody, CardFooter, Text, StackDivider, HStack, VStack, List, ListItem, ListIcon, Link as ChakraLink, Stack } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import { FaHeart } from 'react-icons/fa';
 
@@ -61,16 +61,18 @@ function Recipe() {
                         </div>
                     </HStack>
                 </Box>
-                <CardHeader display='flex' justifyContent='center' alignItems='center' pb={8}>
+                <CardHeader display='flex' justifyContent='center' alignItems='center' flexDir={['column', 'column', 'row']} pb={8}>
                     <Box>
                         <Image
                             src={recipeResult.strMealThumb}
                             alt={recipeResult.strMeal}
                             borderRadius='lg'
                             pl={4}
+                            maxH={['200px', '300px', '400px']}
+                            objectFit='cover'
                         />
                     </Box>
-                    <Box flex='1' display='flex' flexDirection='column' alignItems='center'>
+                    <Stack flex='1' display='flex' flexDirection='column' alignItems='center' pl={[0, 0, 4]}>
                         <VStack>
                             <Text fontSize='xl' fontWeight='bold' textDecoration='underline' align='center' color='blue.800'>
                                 Category: {recipeResult.strCategory}
@@ -93,7 +95,7 @@ function Recipe() {
                             ))}
                         </List>
 
-                    </Box>
+                    </Stack>
                 </CardHeader>
                 <CardBody pb={8}>
                     <HStack divider={<StackDivider />} spacing='4'>
