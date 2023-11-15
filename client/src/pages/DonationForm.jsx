@@ -39,7 +39,7 @@ const DonationForm = () => {
     try {
       const { data } = await donate({
         variables: {
-          amount: amount * 100, 
+          amount: amount * 100,
           token: token.id,
         },
       });

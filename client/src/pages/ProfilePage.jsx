@@ -57,7 +57,7 @@ const ProfilePage = () => {
 
     return (
         <Box bg="brand.gray" pt={12} pb={12}>
-            < Text ><span>My Account</span>
+            < Text fontSize='3xl' fontWeight='bold' fontFamily='Josefin Sans,sans-serif' pl={4}>My Account
                 <br></br>
                 {!loading && data && (
                     <span fontSize="2xl" as="em" color='brand.black'>

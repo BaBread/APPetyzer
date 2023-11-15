@@ -102,7 +102,7 @@ const Header = () => {
             />
           </Box>
           <Link to="/search-results">
-            <Button onClick={handleSearch} ml={{ base: 0, md: 2 }}>
+            <Button _hover={{ bg: "blue.500" }} onClick={handleSearch} ml={{ base: 0, md: 2 }}>
               Search
             </Button>
           </Link>
@@ -118,12 +118,13 @@ const Header = () => {
               <>
                 {!loading && data && (
                   <span>Hey there, {data.me.username}!</span>)}
-                  <Link to="/profilepage">
-                  <Button _hover={{ bg: "blue.500" }} fontSize={{ base: 'lg', md: 'lg' }} textDecoration="underline">
+                <Link to="/profilepage">
+                  <Button _hover={{ bg: "blue.500" }} ml={4} fontSize={{ base: 'lg', md: 'lg' }} textDecoration="underline">
                     My Profile
                   </Button>
                 </Link>
                 <Button
+                  _hover={{ bg: "blue.500" }}
                   className="btn btn-lg btn-light m-2"
                   ml={{ base: 0, md: 5 }}
                   onClick={logout}

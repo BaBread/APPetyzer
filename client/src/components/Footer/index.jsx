@@ -20,7 +20,7 @@ import {
 const ReferAFriendModal = ({ onClose, referFriend }) => {
   const [friendName, setFriendName] = useState('');
   const [friendEmail, setFriendEmail] = useState('');
- 
+
 
   const handleInputChange = (e) => {
     console.log('Input changed:', e.target.value);
@@ -106,7 +106,7 @@ const Footer = () => {
           variant="solid"
           ml={16}
           onClick={openReferModal}
-          
+
         >
           Refer a Friend
         </Button>
