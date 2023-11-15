@@ -9,6 +9,7 @@ const favoriteRecipeSchema = new Schema({
             default: Date.now,
             get: (timestamp) => dateFormat(timestamp),
           }
+             
 })
 
 const favoriteRecipe = model('favoriteRecipe', favoriteRecipeSchema)
