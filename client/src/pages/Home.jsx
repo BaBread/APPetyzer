@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-// import { QUERY_THOUGHTS } from "../utils/queries";
 import {
   Box,
   SimpleGrid,
