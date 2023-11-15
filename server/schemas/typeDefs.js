@@ -21,6 +21,7 @@ type Recipe {
   type Query {
     users: [User]
     user(username: String!): User
+    me: User
     recipeById(idMeal: ID!): Recipe
   }
 
@@ -28,7 +29,16 @@ type Recipe {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addRecipe(idMeal: String!): User
-    deleteRecipe(idMeal: ID!): User 
+    deleteRecipe(idMeal: ID!): User  
+    sendEmail(friendName: String!, friendEmail: String!): String
+    donate(token: String!, amount: Int!): DonationResponse
+  }
+
+  type DonationResponse {
+    success: Boolean!
+    message: String
+    errorMessage: String
+
   }
 `;
 

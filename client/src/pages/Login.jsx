@@ -61,6 +61,7 @@ const Login = (props) => {
       justify="center"
       minH="calc(100vh - 240px)"
       bg='brand.gray'
+      w="100%"
     >
       <Box w="full" maxW="lg" p={6}>
         <Box bg="brand.black" p={8} borderRadius="lg">

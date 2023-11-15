@@ -56,8 +56,8 @@ function SearchResultsPage() {
   }, [searchTerm]);
 
   return (
-    <Box bg="brand.gray" pt={12} pb={12}>
-      <SimpleGrid columns={5} spacing={4} align="center">
+    <Box bg="brand.gray" pt={12} pb={12} w="100%">
+      <SimpleGrid columns={[1, 2, 4, 5]} spacing={4} align="center">
         {searchResults.map((result) => (
           <Box key={result.id} as="article">
             <Card

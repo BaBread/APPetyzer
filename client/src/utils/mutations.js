@@ -45,3 +45,22 @@ export const DELETE_RECIPE = gql`
     }
   }
 `;
+
+// SEND EMAIL
+export const SEND_EMAIL_MUTATION = gql`
+  mutation SendEmail($friendName: String!, $friendEmail: String!) {
+    sendEmail(friendName: $friendName, friendEmail: $friendEmail)
+  }
+`;
+
+// DONATE TO SITE
+export const DONATE_MUTATION = gql`
+  mutation donate($amount: Int!, $token: String!) {
+    donate(amount: $amount, token: $token) {
+      success 
+      clientSecret
+      errorMessage
+    }
+  }
+`;
+

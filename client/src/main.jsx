@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Recipe from './pages/Recipe';
 import Login from './pages/Login';
+import DonationForm from './pages/DonationForm.jsx';
 
 import ErrorPage from './pages/ErrorPage';
 import SearchResultsPage from './pages/SearchResultsPage.jsx';
@@ -38,6 +39,9 @@ const router = createBrowserRouter([
       }, {
         path: '/profilepage',
         element: <ProfilePage />
+      },  {
+        path: '/donate',
+        element: <DonationForm />
       }
     ]
   },
