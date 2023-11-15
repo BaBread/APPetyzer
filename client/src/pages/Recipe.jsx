@@ -10,6 +10,7 @@ import {
   CardBody,
   CardFooter,
   Text,
+  Stack,
   StackDivider,
   HStack,
   VStack,
