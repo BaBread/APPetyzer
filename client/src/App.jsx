@@ -57,9 +57,9 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <ApolloProvider client={client}>
-          <Header />
-            <Outlet />
-          <Footer />
+        <Header />
+        <Outlet />
+        <Footer />
       </ApolloProvider>
     </ChakraProvider>
   );
