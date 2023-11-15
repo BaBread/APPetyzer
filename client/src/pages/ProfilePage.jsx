@@ -29,8 +29,7 @@ import {
 
 
 const ProfilePage = () => {
-    const { loading, data } = useQuery(QUERY_ME
-    );
+    const { loading, data } = useQuery(QUERY_ME);
     const [myMeals, setMyMeals] = useState([]);
 
     const fetchMyMeals = async () => {
@@ -52,10 +51,11 @@ const ProfilePage = () => {
             console.error("Error fetching meals:", error);
         }
     };
-
     useEffect(() => {
-        if (data) {
-            fetchMyMeals()
+
+        if (data && !loading) {
+            console.log(data);
+            fetchMyMeals();
         };
     }, [data]);
 
@@ -65,9 +65,11 @@ const ProfilePage = () => {
         <Box bg="brand.gray" pt={12} pb={12}>
             < Text ><span>My Account</span>
                 <br></br>
-                <span fontSize="2xl" as="em" color='brand.black'>
-                    My Username: {data.me.username}!
-                </span>
+                {!loading && data && (
+                    <span fontSize="2xl" as="em" color='brand.black'>
+                        My Username: {data.me.username}
+                    </span>
+                )}
                 <br></br>
                 <span fontSize="2xl" as="em" color='brand.black'>
                     My Email: {Auth.getProfile().data.email}!
